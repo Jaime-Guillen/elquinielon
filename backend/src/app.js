@@ -1,16 +1,18 @@
 require('dotenv').config();
 
 const express = require('express');
-const pool = require('./config/db');
+const cors = require('cors');
+const rutasAuth = require('./routes/auth');
+
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.json({ mensaje: 'El Quinielón funcionando' });
 });
 
-app.get('/test-db', async (req, res) => {
-  const [filas] = await pool.query('SELECT COUNT(*) AS total FROM usuarios');
-  res.json(filas[0]);
-});
+app.use('/api/auth', rutasAuth);
 
 app.listen(process.env.PORT || 3000, () => console.log('Servidor en http://localhost:3000'));
