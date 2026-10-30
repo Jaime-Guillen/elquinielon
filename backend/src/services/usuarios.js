@@ -15,4 +15,11 @@ async function crearUsuario(nombre, email, hash) {
   return resultado.insertId;   // id del usuario recién creado
 }
 
-module.exports = { buscarPorEmail, crearUsuario };
+async function buscarPorId(id) {
+  const [filas] = await pool.query(
+    'SELECT id, nombre, email, monedas FROM usuarios WHERE id = ?', [id]
+  );
+  return filas[0];
+}
+
+module.exports = { buscarPorEmail, crearUsuario, buscarPorId };
