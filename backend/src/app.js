@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const rutasAuth = require('./routes/auth');
+const rutasLigas = require('./routes/ligas');
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', rutasAuth);
+app.use('/api/ligas', rutasLigas);
 
 app.listen(process.env.PORT || 3000, () => console.log('Servidor en http://localhost:3000'));
